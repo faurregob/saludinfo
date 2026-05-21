@@ -1,0 +1,1290 @@
+// ═══════════════════════════════════════════════════════
+//  SALUD INFO COLOMBIA — SCSS Principal
+//  Arquitectura MVC · Bootstrap 5 Customizado
+// ═══════════════════════════════════════════════════════
+
+// ─── 1. Bootstrap 5 Variable Overrides ───────────────────
+$primary:           #0a4f6e;
+$secondary:         #1a8c6e;
+$success:           #1a8c6e;
+$warning:           #e8a020;
+$danger:            #c0392b;
+$info:              #0e6b5a;
+$light:             #f0f4f8;
+$dark:              #1a2535;
+
+$font-family-sans-serif: 'DM Sans', sans-serif;
+$font-family-serif:      'Playfair Display', Georgia, serif;
+
+$border-radius:     12px;
+$border-radius-sm:  6px;
+$border-radius-lg:  16px;
+
+$box-shadow:        0 4px 24px rgba(10, 79, 110, 0.10);
+$box-shadow-lg:     0 8px 36px rgba(10, 79, 110, 0.18);
+
+$transition-base:   all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+$navbar-dark-color:         rgba(255, 255, 255, 0.82);
+$navbar-dark-hover-color:   #ffffff;
+$navbar-dark-active-color:  #ffffff;
+$navbar-dark-bg:            #0a4f6e;
+
+$body-bg:           #f0f4f8;
+$body-color:        #1a2535;
+
+$link-color:        #1a8c6e;
+$link-hover-color:  darken(#1a8c6e, 10%);
+
+// ─── 2. Import Bootstrap 5 ───────────────────────────────
+// (se importa desde CDN en HTML; aquí se definen variables y utilidades custom)
+
+// ─── 3. Design Tokens (CSS Custom Properties) ───────────
+:root {
+  --col-bg:        #f0f4f8;
+  --col-surface:   #ffffff;
+  --col-primary:   #0a4f6e;
+  --col-secondary: #1a8c6e;
+  --col-accent:    #e8a020;
+  --col-text:      #1a2535;
+  --col-muted:     #5a6a80;
+  --col-border:    #d0dbe8;
+  --col-card:      #ffffff;
+  --col-nav:       #0a4f6e;
+  --font-display:  'Playfair Display', Georgia, serif;
+  --font-body:     'DM Sans', sans-serif;
+  --radius:        12px;
+  --shadow:        #{$box-shadow};
+  --shadow-hover:  #{$box-shadow-lg};
+  --transition:    0.25s cubic-bezier(.4,0,.2,1);
+}
+
+// ─── 4. Base & Reset ─────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--col-bg);
+  color: var(--col-text);
+  min-height: 100vh;
+}
+
+// ─── 5. Typography ───────────────────────────────────────
+.font-display {
+  font-family: var(--font-display);
+}
+
+// ─── 6. Navbar ───────────────────────────────────────────
+#main-nav {
+  background: var(--col-nav);
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+
+  .navbar-brand {
+    font-family: var(--font-display);
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+
+    .brand-accent {
+      color: var(--col-accent);
+    }
+  }
+
+  .nav-link {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    transition: var(--transition);
+    letter-spacing: 0.02em;
+
+    &:hover,
+    &.active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+  }
+
+  .navbar-toggler {
+    border: none;
+    padding: 6px;
+    &:focus { box-shadow: none; }
+
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      margin: 5px 0;
+      transition: var(--transition);
+    }
+  }
+}
+
+// ─── 7. Hero ─────────────────────────────────────────────
+#inicio-section {
+  background: linear-gradient(135deg, var(--col-primary) 0%, #0e6b5a 100%);
+  color: #fff;
+  padding: 5rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-text {
+    position: relative;
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+
+      em {
+        color: var(--col-accent);
+        font-style: normal;
+      }
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 2rem;
+    }
+  }
+
+  .hero-stats-wrap {
+    position: relative;
+  }
+}
+
+// Stat Cards
+.stat-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  text-align: center;
+
+  .number {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--col-accent);
+  }
+
+  .label {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 0.3rem;
+    line-height: 1.4;
+  }
+}
+
+// ─── 8. Buttons ──────────────────────────────────────────
+.btn-saludinfo-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--col-accent);
+  color: #1a2535;
+  padding: 0.75rem 1.6rem;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.02em;
+
+  &:hover {
+    background: darken(#e8a020, 8%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(232, 160, 32, 0.4);
+    color: #1a2535;
+  }
+}
+
+.btn-saludinfo-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 0.75rem 1.6rem;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+    transform: translateY(-2px);
+    color: #fff;
+  }
+}
+
+// ─── 9. Section Wrapper ──────────────────────────────────
+.section-content {
+  padding: 4rem 0;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--col-primary);
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: var(--col-muted);
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+  max-width: 640px;
+}
+
+.section-divider {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--col-secondary), var(--col-accent));
+  border-radius: 2px;
+  margin-bottom: 1.2rem;
+}
+
+// ─── 10. Search & Filter Controls ────────────────────────
+.search-input,
+.filter-select {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 2px solid var(--col-border);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--col-surface);
+  transition: var(--transition);
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: var(--col-secondary);
+    box-shadow: 0 0 0 3px rgba(26, 140, 110, 0.15);
+  }
+}
+
+.filter-select {
+  cursor: pointer;
+}
+
+// ─── 11. EPS Cards ───────────────────────────────────────
+.eps-card {
+  background: var(--col-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--col-border);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--col-secondary);
+  }
+
+  .eps-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    font-family: var(--font-display);
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--col-primary);
+    margin-bottom: 0;
+  }
+
+  .eps-type {
+    font-size: 0.75rem;
+    color: var(--col-muted);
+    background: var(--col-bg);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 0.2rem;
+  }
+
+  .eps-info {
+    font-size: 0.875rem;
+    color: var(--col-muted);
+    line-height: 1.6;
+    margin-top: 0.8rem;
+
+    strong { color: var(--col-text); }
+  }
+}
+
+// ── Modal EPS — info extendida ──
+.eps-modal-section {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--col-border);
+  &:last-child { border-bottom: none; }
+}
+.eps-modal-titulo {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--col-muted);
+  margin-bottom: 0.4rem;
+}
+.eps-modal-texto {
+  font-size: 0.9rem;
+  color: var(--col-text);
+  margin: 0;
+}
+.eps-modal-link {
+  font-size: 0.9rem;
+  color: var(--col-secondary);
+  word-break: break-all;
+}
+.eps-modal-lista {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.88rem;
+  color: var(--col-text);
+  li { margin-bottom: 0.25rem; }
+}
+.eps-calificacion {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.eps-cal-numero {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--col-text);
+}
+.eps-cal-estrellas {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+}
+.eps-cal-max {
+  font-size: 0.85rem;
+  color: var(--col-muted);
+}
+
+// ─── 12. Tags & Badges ───────────────────────────────────
+.tag {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: #e8f4f0;
+  color: var(--col-secondary);
+  font-weight: 500;
+
+  &.urgent {
+    background: #fdebd0;
+    color: #b45309;
+  }
+
+  &.info-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+  }
+}
+
+.badge-open {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: #d1fae5;
+  color: #065f46;
+  white-space: nowrap;
+}
+
+.badge-closed {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: #fee2e2;
+  color: #991b1b;
+  white-space: nowrap;
+}
+
+// ─── 13. IPS Cards ───────────────────────────────────────
+.ips-card {
+  background: var(--col-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--col-border);
+  padding: 1.3rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .ips-card-type {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: var(--col-muted);
+    line-height: 1.5;
+  }
+}
+
+// IPS Filter Tabs
+.tab-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  border: 2px solid var(--col-border);
+  background: var(--col-surface);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--col-muted);
+
+  &.active,
+  &:hover {
+    background: var(--col-secondary);
+    color: #fff;
+    border-color: var(--col-secondary);
+  }
+}
+
+// IPS Info Box
+.ips-info-box {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--col-border);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+
+  h3 {
+    font-family: var(--font-display);
+    color: var(--col-primary);
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+// ─── 14. Sede Cards ──────────────────────────────────────
+.sede-card {
+  background: var(--col-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--col-border);
+  padding: 1.4rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  h3 {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--col-primary);
+    margin-bottom: 0;
+  }
+
+  .sede-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.83rem;
+    color: var(--col-muted);
+    margin-top: 0.5rem;
+
+    svg { flex-shrink: 0; }
+  }
+}
+
+// ── Botón ver ubicación en tarjeta ──
+.sede-acciones {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--col-border);
+}
+.btn-sede-mapa {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1.5px solid var(--col-secondary);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--col-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  &:hover {
+    background: var(--col-secondary);
+    color: #fff;
+  }
+}
+
+// ── Contenedor del mapa ──
+.mapa-wrap {
+  margin-top: 3rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid var(--col-border);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+.mapa-info-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1.4rem;
+  background: var(--col-surface);
+  border-bottom: 1px solid var(--col-border);
+}
+.mapa-info-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.mapa-info-nombre {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--col-text);
+}
+.mapa-info-dir {
+  font-size: 0.82rem;
+  color: var(--col-muted);
+}
+.mapa-info-acciones {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.btn-mapa-accion {
+  padding: 0.45rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--col-secondary);
+  color: #fff;
+  text-decoration: none;
+  transition: opacity .2s;
+  &:hover { opacity: 0.85; color: #fff; }
+  &.secundario {
+    background: transparent;
+    border: 1.5px solid var(--col-secondary);
+    color: var(--col-secondary);
+    &:hover { background: var(--col-secondary); color: #fff; }
+  }
+}
+.mapa-iframe {
+  width: 100%;
+  height: 420px;
+  border: none;
+  display: block;
+}
+
+// ─── 15. Citas / Steps ───────────────────────────────────
+.step-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--col-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--col-border);
+  padding: 1.2rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  margin-bottom: 1.2rem;
+
+  &:hover {
+    border-color: var(--col-secondary);
+  }
+
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--col-secondary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  p {
+    font-size: 0.83rem;
+    color: var(--col-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.canales-box {
+  background: var(--col-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--col-border);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--col-primary);
+    margin-bottom: 1.2rem;
+  }
+}
+
+.canal-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--col-border);
+
+  &:last-child { border-bottom: none; }
+
+  .canal-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--col-primary), var(--col-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 0.8rem;
+    color: var(--col-muted);
+    margin: 0;
+  }
+}
+
+.urgencias-alert {
+  margin-top: 1.2rem;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 1.2rem;
+
+  h4 {
+    color: #92400e;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    font-size: 0.83rem;
+    color: #78350f;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+
+    &:last-child { margin-bottom: 0; }
+  }
+}
+
+// ─── 16. FAQ ─────────────────────────────────────────────
+.faq-item {
+  background: var(--col-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--col-border);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 0.8rem;
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 1.4rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    gap: 1rem;
+    user-select: none;
+
+    &:hover {
+      background: #f7fafb;
+    }
+
+    .arrow {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--col-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      color: var(--col-muted);
+    }
+  }
+
+  &.open .arrow {
+    transform: rotate(180deg);
+    background: var(--col-secondary);
+    color: #fff;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.2s;
+    font-size: 0.88rem;
+    color: var(--col-muted);
+    line-height: 1.7;
+    padding: 0 1.4rem;
+  }
+
+  &.open .faq-answer {
+    max-height: 400px;
+    padding: 0 1.4rem 1.2rem;
+  }
+}
+
+// ─── 17. Modal ───────────────────────────────────────────
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  background: rgba(10, 20, 35, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+
+    .modal-box {
+      transform: translateY(0);
+    }
+  }
+}
+
+.modal-box {
+  background: var(--col-surface);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 540px;
+  width: 100%;
+  padding: 2rem;
+  transform: translateY(20px);
+  transition: transform 0.25s;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  .modal-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--col-primary);
+      margin: 0;
+    }
+  }
+
+  .modal-close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--col-bg);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--col-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+
+    &:hover { background: var(--col-border); }
+  }
+
+  .modal-content-body {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--col-muted);
+
+    h4 { color: var(--col-text); margin: 1rem 0 0.4rem; }
+    ul { padding-left: 1.2rem; }
+    li { margin-bottom: 0.3rem; }
+    a { color: var(--col-secondary); }
+  }
+}
+
+// ─── 18. Footer ──────────────────────────────────────────
+footer {
+  background: var(--col-primary);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 3rem 0 1.5rem;
+
+  .footer-brand {
+    h3 {
+      font-family: var(--font-display);
+      color: #fff;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+  }
+
+  .footer-col {
+    h4 {
+      color: #fff;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        font-size: 0.83rem;
+        padding: 0.25rem 0;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover { color: var(--col-accent); }
+      }
+    }
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 1.2rem;
+    font-size: 0.78rem;
+    margin-top: 2rem;
+
+    span { color: var(--col-accent); }
+  }
+}
+
+// ─── 19. Animations ──────────────────────────────────────
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up   { animation: fadeUp 0.5s ease both; }
+.fade-up-2 { animation: fadeUp 0.5s 0.1s ease both; }
+.fade-up-3 { animation: fadeUp 0.5s 0.2s ease both; }
+
+// ─── 20. Responsive ──────────────────────────────────────
+@media (max-width: 991.98px) {
+  .citas-layout {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 767.98px) {
+  #inicio-section {
+    padding: 3rem 0 2rem;
+  }
+
+  .stat-card .number {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .section-content {
+    padding: 2.5rem 0;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   MODAL CITA — Formulario de agendamiento
+═══════════════════════════════════════════ */
+
+.cita-modal-box { max-width: 560px; }
+
+.cita-step { animation: fadeSlide .25s ease; }
+.cita-step.hidden { display: none; }
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cita-step-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--col-secondary);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 0.4rem;
+}
+
+.cita-progress {
+  height: 4px;
+  background: var(--col-border);
+  border-radius: 4px;
+  margin-bottom: 1.6rem;
+  overflow: hidden;
+}
+.cita-progress-bar {
+  height: 100%;
+  background: var(--col-secondary);
+  border-radius: 4px;
+  transition: width .4s ease;
+}
+
+/* Campos */
+.cita-field {
+  margin-bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.cita-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--col-text);
+}
+.cita-field input,
+.cita-field select,
+.cita-field textarea {
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--col-border);
+  border-radius: 8px;
+  background: var(--col-surface);
+  color: var(--col-text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: border-color .2s;
+  outline: none;
+}
+.cita-field input:focus,
+.cita-field select:focus,
+.cita-field textarea:focus { border-color: var(--col-secondary); }
+
+.cita-error {
+  font-size: 0.75rem;
+  color: #e53e3e;
+  min-height: 1rem;
+}
+
+/* Radio group */
+.cita-radio-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.cita-radio-opt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  cursor: pointer;
+  padding: 0.5rem 0.8rem;
+  border: 1.5px solid var(--col-border);
+  border-radius: 8px;
+  transition: border-color .2s, background .2s;
+}
+.cita-radio-opt:has(input:checked) {
+  border-color: var(--col-secondary);
+  background: color-mix(in srgb, var(--col-secondary) 8%, transparent);
+}
+
+/* Navegación de pasos */
+.cita-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--col-border);
+}
+
+/* Calendario */
+.cita-calendario-wrap {
+  border: 1.5px solid var(--col-border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.cita-cal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+.cita-cal-header button {
+  background: none;
+  border: 1.5px solid var(--col-border);
+  border-radius: 6px;
+  width: 28px; height: 28px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--col-text);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.cita-cal-header button:hover { background: var(--col-border); }
+
+.cita-cal-dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--col-muted);
+  margin-bottom: 0.4rem;
+}
+
+.cita-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+.cita-cal-celda {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: default;
+}
+.cita-cal-celda.disponible  { background: color-mix(in srgb, #1a8c6e 12%, transparent); color: #1a8c6e; cursor: pointer; }
+.cita-cal-celda.disponible:hover { background: color-mix(in srgb, #1a8c6e 25%, transparent); }
+.cita-cal-celda.ocupado     { background: color-mix(in srgb, #e53e3e 10%, transparent); color: #e53e3e; }
+.cita-cal-celda.no-disponible { color: var(--col-muted); opacity: .4; }
+.cita-cal-celda.seleccionado { background: var(--col-secondary); color: #fff; font-weight: 700; }
+.cita-cal-celda.vacio { background: none; }
+
+.cita-cal-leyenda {
+  display: flex; gap: 1rem; margin-top: 0.8rem;
+  justify-content: center; flex-wrap: wrap;
+}
+.leyenda-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; color: var(--col-muted); }
+.leyenda-dot { width: 10px; height: 10px; border-radius: 3px; }
+.leyenda-dot.disponible  { background: #1a8c6e; }
+.leyenda-dot.ocupado     { background: #e53e3e; }
+.leyenda-dot.seleccionado { background: var(--col-secondary); }
+
+/* Chips de hora */
+.cita-horas-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.hora-chip {
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all .15s;
+}
+.hora-chip.disponible  { border-color: var(--col-secondary); color: var(--col-secondary); background: transparent; }
+.hora-chip.disponible:hover { background: var(--col-secondary); color: #fff; }
+.hora-chip.seleccionado { background: var(--col-secondary); color: #fff; border-color: var(--col-secondary); }
+.hora-chip.ocupado { border-color: var(--col-border); color: var(--col-muted); background: transparent; cursor: not-allowed; opacity: .5; }
+
+
+/* Confirmación de cita enviada */
+.cita-confirmacion {
+  text-align: center;
+  padding: 2rem 1rem;
+  animation: fadeSlide .3s ease;
+
+  &.hidden { display: none; }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0.8rem 0 0.4rem;
+    color: var(--col-text);
+  }
+  p {
+    color: var(--col-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.4rem;
+  }
+}
+.cita-confirmacion-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.cita-celular-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--col-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color .2s;
+
+  &:focus-within { border-color: var(--col-secondary); }
+
+  input {
+    border: none !important;
+    border-radius: 0 !important;
+    flex: 1;
+    &:focus { border: none; }
+  }
+}
+.cita-celular-prefix {
+  padding: 0.6rem 0.8rem;
+  background: var(--col-border);
+  color: var(--col-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border-right: 1.5px solid var(--col-border);
+}
+
+/* Toast de notificación */
+.toast-notificacion {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #1a8c6e;
+  color: #fff;
+  padding: 0.9rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity .3s ease, transform .3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+
+  &.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ── Botón flotante WhatsApp ── */
+.whatsapp-flotante {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #25D366;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.75rem 1.2rem 0.75rem 0.9rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(37, 211, 102, 0.5);
+    color: #fff;
+  }
+}
+
+.whatsapp-flotante-texto {
+  white-space: nowrap;
+}

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SaludInfo Colombia — EPS &amp; IPS</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Estilos propios (compilados desde SCSS) -->
+  <link rel="stylesheet" href="scss/main.css"/>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     NAVBAR — Bootstrap 5 Navbar
+════════════════════════════════════════════════ -->
+<nav class="navbar navbar-expand-lg" id="main-nav">
+  <div class="container">
+
+    <!-- Brand / Logo -->
+    <a class="navbar-brand" href="#" onclick="return Controller.navigate('inicio')">
+      ✚ Salud<span class="brand-accent">Info</span>
+    </a>
+
+    <!-- Toggler mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Nav Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto gap-1">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" data-section="inicio" onclick="return Controller.navigate('inicio')">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-section="mi-eps" onclick="return Controller.navigate('mi-eps')">Mi EPS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-section="mi-ips" onclick="return Controller.navigate('mi-ips')">Mi IPS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-section="sedes" onclick="return Controller.navigate('sedes')">Sedes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-section="citas" onclick="return Controller.navigate('citas')">Agendar Cita</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-section="faq" onclick="return Controller.navigate('faq')">Preguntas Frecuentes</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════
+     HERO / INICIO
+════════════════════════════════════════════════ -->
+<section id="inicio-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <!-- Texto del hero -->
+      <div class="col-lg-6 hero-text fade-up">
+        <h1>Tu guía para el sistema de salud <em>colombiano</em></h1>
+        <p>Encuentra información clara sobre tu EPS, IPS, sedes de atención y cómo agendar tu cita médica. Todo en un solo lugar, sin complicaciones.</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <button class="btn-saludinfo-primary" onclick="Controller.navigate('mi-eps')">
+            Consultar mi EPS →
+          </button>
+          <button class="btn-saludinfo-outline" onclick="Controller.navigate('sedes')">
+            Ver sedes cercanas
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats del hero -->
+      <div class="col-lg-6 hero-stats-wrap fade-up-2">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="number">+40</div>
+              <div class="label">EPS activas en Colombia</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="number">23M</div>
+              <div class="label">Colombianos en régimen contributivo</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="number">8</div>
+              <div class="label">Secciones informativas</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="number">24/7</div>
+              <div class="label">Líneas de urgencias disponibles</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     SECCIÓN: MI EPS
+════════════════════════════════════════════════ -->
+<div id="mi-eps" class="section-content">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">¿Qué es mi EPS?</h2>
+    <p class="section-subtitle">Conoce las principales Entidades Promotoras de Salud de Colombia, sus canales oficiales y cómo verificar tu afiliación.</p>
+
+    <!-- Filtros de búsqueda -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-8">
+        <input type="text" class="search-input" id="eps-search-input"
+               placeholder="🔍 Buscar EPS por nombre o descripción..."
+               oninput="Controller.filterEPS(this.value)"/>
+      </div>
+      <div class="col-md-4">
+        <select class="filter-select" id="eps-filter-type" onchange="Controller.filterEPS()">
+          <option value="">Todos los regímenes</option>
+          <option value="Contributivo">Contributivo</option>
+          <option value="Subsidiado">Subsidiado</option>
+          <option value="Ambos">Ambos</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Grid de EPS (renderizado por View.renderEPS) -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" id="eps-grid"></div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     SECCIÓN: MI IPS
+════════════════════════════════════════════════ -->
+<div id="mi-ips" class="section-content">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">¿Qué es mi IPS?</h2>
+    <p class="section-subtitle">Las Instituciones Prestadoras de Salud son los centros donde recibes atención médica. Conoce los tipos y cómo identificar cuál te corresponde.</p>
+
+    <!-- Pestañas de filtro -->
+    <div class="d-flex flex-wrap gap-2 mb-4" id="ips-tabs">
+      <button class="tab-btn active" onclick="Controller.filterIPS('all', this)">Todos</button>
+      <button class="tab-btn" onclick="Controller.filterIPS('primaria', this)">Atención Primaria</button>
+      <button class="tab-btn" onclick="Controller.filterIPS('especializada', this)">Especializada</button>
+      <button class="tab-btn" onclick="Controller.filterIPS('urgencias', this)">Urgencias</button>
+    </div>
+
+    <!-- Cuadro informativo diferencias IPS -->
+    <div class="ips-info-box">
+      <h3>Diferencia entre IPS Primaria y Especializada</h3>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <h4 style="color:var(--col-secondary);font-size:0.9rem;margin-bottom:0.4rem;">🏥 IPS Primaria</h4>
+          <p style="font-size:0.85rem;color:var(--col-muted);line-height:1.6;margin:0;">Es tu primer punto de contacto con el sistema de salud. Aquí se atienden consultas generales, vacunación, odontología básica, control prenatal y medicamentos esenciales.</p>
+        </div>
+        <div class="col-md-6">
+          <h4 style="color:var(--col-primary);font-size:0.9rem;margin-bottom:0.4rem;">🏨 IPS Especializada</h4>
+          <p style="font-size:0.85rem;color:var(--col-muted);line-height:1.6;margin:0;">Requiere remisión de tu médico general. Atiende condiciones que necesitan especialistas: cardiología, ortopedia, neurología, cirugías programadas, entre otros.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de IPS (renderizado por View.renderIPS) -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" id="ips-grid"></div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     SECCIÓN: SEDES
+════════════════════════════════════════════════ -->
+<div id="sedes" class="section-content">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">Directorio de Sedes</h2>
+    <p class="section-subtitle">Encuentra centros de atención médica con ubicación, horarios y datos de contacto.</p>
+
+    <!-- Filtros de sedes -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <select class="filter-select" id="sedes-city" onchange="Controller.filterSedes()">
+          <option value="">Todas las ciudades</option>
+          <option value="Bogotá">Bogotá</option>
+          <option value="Medellín">Medellín</option>
+          <option value="Cali">Cali</option>
+          <option value="Barranquilla">Barranquilla</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <select class="filter-select" id="sedes-eps" onchange="Controller.filterSedes()">
+          <option value="">Todas las EPS</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Grid de sedes (renderizado por View.renderSedes) -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" id="sedes-list"></div>
+    <!-- Mapa de Google Maps -->
+    <div class="mapa-wrap" id="mapa-wrap" style="display:none">
+      <div class="mapa-info-bar" id="mapa-info-bar">
+        <div class="mapa-info-texto">
+          <span class="mapa-info-nombre" id="mapa-info-nombre"></span>
+          <span class="mapa-info-dir" id="mapa-info-dir"></span>
+        </div>
+        <!-- <div class="mapa-info-acciones">
+          <a class="btn-mapa-accion" id="mapa-btn-transporte" href="#" target="_blank" rel="noopener">
+            🚌 Cómo llegar en transporte público
+          </a>
+          <a class="btn-mapa-accion secundario" id="mapa-btn-gmaps" href="#" target="_blank" rel="noopener">
+            🗺️ Abrir en Google Maps
+          </a>
+        </div> -->
+      </div>
+      <iframe
+        id="mapa-iframe"
+        class="mapa-iframe"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     SECCIÓN: AGENDAR CITA
+════════════════════════════════════════════════ -->
+<div id="citas" class="section-content">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">Guía para Agendar Citas</h2>
+    <p class="section-subtitle">Sigue estos pasos para agendar tu cita médica. Los canales y requisitos varían según tu EPS.</p>
+
+    <div class="row g-4">
+      <!-- Pasos (renderizado por View.renderCitas) -->
+      <div class="col-lg-5">
+        <div id="citas-steps"></div>
+      </div>
+
+      <!-- Canales y alerta de urgencias -->
+      <div class="col-lg-7">
+        <div class="canales-box">
+          <h3>Canales disponibles</h3>
+          <div id="canales-list"></div>
+        </div>
+
+        <div class="urgencias-alert">
+          <h4>⚠️ Importante — Urgencias</h4>
+          <p>En caso de urgencia médica <strong>NO necesitas cita previa</strong>. Dirígete directamente al servicio de urgencias de cualquier clínica u hospital habilitado. Tu EPS <strong>debe</strong> cubrir la atención inicial.</p>
+          <p>Línea de emergencias nacional: <strong>123</strong></p>
+        </div>
+
+        <div class="text-center mt-4">
+          <button class="btn-saludinfo-primary" style="font-size:1rem;padding:0.85rem 2rem;" onclick="CitaController.abrirModal()">
+            📅 Agendar mi cita ahora
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     SECCIÓN: PREGUNTAS FRECUENTES
+════════════════════════════════════════════════ -->
+<div id="faq" class="section-content">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2 class="section-title">Preguntas Frecuentes</h2>
+    <p class="section-subtitle">Respuestas a las dudas más comunes sobre el sistema de salud colombiano.</p>
+
+    <!-- FAQ (renderizado por View.renderFAQ) -->
+    <div id="faq-list"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     MODAL — Agendar Cita
+════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="cita-modal-overlay" onclick="CitaController.cerrarModal(event)" role="dialog" aria-modal="true" aria-labelledby="cita-modal-title">
+  <div class="modal-box cita-modal-box" id="cita-modal-box">
+
+    <div class="modal-header-bar">
+      <h2 id="cita-modal-title">📅 Agendar Cita Médica</h2>
+      <button class="modal-close-btn" onclick="CitaController.cerrarModal()" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div class="modal-content-body">
+
+      <!-- PASO 1: Datos personales -->
+      <div class="cita-step" id="cita-step-1">
+        <p class="cita-step-label">Paso 1 de 3 — Datos personales</p>
+        <div class="cita-progress"><div class="cita-progress-bar" style="width:33%"></div></div>
+
+        <div class="cita-field">
+          <label for="cita-nombre">Nombre completo</label>
+          <input type="text" id="cita-nombre" placeholder="Ej: Nombre del Paciente" autocomplete="name"/>
+          <span class="cita-error" id="err-nombre"></span>
+        </div>
+        <div class="cita-field">
+          <label for="cita-cedula">Número de cédula</label>
+          <input type="text" id="cita-cedula" placeholder="Ej: 9999999999" inputmode="numeric"/>
+          <span class="cita-error" id="err-cedula"></span>
+        </div>
+        <div class="cita-field">
+          <label for="cita-celular">Número de celular (WhatsApp)</label>
+          <div class="cita-celular-wrap">
+            <span class="cita-celular-prefix">🇨🇴 +57</span>
+            <input type="text" id="cita-celular" placeholder="Ej: 3101234567" inputmode="numeric" maxlength="10"/>
+          </div>
+          <span class="cita-error" id="err-celular"></span>
+        </div>
+        <div class="cita-field">
+          <label for="cita-eps">EPS</label>
+          <select id="cita-eps">
+            <option value="">— Selecciona tu EPS —</option>
+          </select>
+          <span class="cita-error" id="err-eps"></span>
+        </div>
+
+        <div class="cita-nav">
+          <span></span>
+          <button class="btn-saludinfo-primary" onclick="CitaController.irPaso(2)">Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- PASO 2: Tipo de consulta y sede -->
+      <div class="cita-step hidden" id="cita-step-2">
+        <p class="cita-step-label">Paso 2 de 3 — Tipo de consulta</p>
+        <div class="cita-progress"><div class="cita-progress-bar" style="width:66%"></div></div>
+
+        <div class="cita-field">
+          <label>Tipo de consulta</label>
+          <div class="cita-radio-group">
+            <label class="cita-radio-opt">
+              <input type="radio" name="cita-tipo" value="General"/> Medicina General
+            </label>
+            <label class="cita-radio-opt">
+              <input type="radio" name="cita-tipo" value="Especialista"/> Especialista (requiere remisión)
+            </label>
+          </div>
+          <span class="cita-error" id="err-tipo"></span>
+        </div>
+        <div class="cita-field">
+          <label for="cita-sede">Sede de atención</label>
+          <select id="cita-sede">
+            <option value="">— Selecciona una sede —</option>
+          </select>
+          <span class="cita-error" id="err-sede"></span>
+        </div>
+        <div class="cita-field">
+          <label for="cita-motivo">Motivo de consulta</label>
+          <textarea id="cita-motivo" rows="3" placeholder="Describe brevemente tus síntomas o el motivo de tu consulta..."></textarea>
+          <span class="cita-error" id="err-motivo"></span>
+        </div>
+
+        <div class="cita-nav">
+          <button class="btn-saludinfo-outline" onclick="CitaController.irPaso(1)">← Atrás</button>
+          <button class="btn-saludinfo-primary" onclick="CitaController.irPaso(3)">Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Disponibilidad y fecha -->
+      <div class="cita-step hidden" id="cita-step-3">
+        <p class="cita-step-label">Paso 3 de 3 — Selecciona fecha y hora</p>
+        <div class="cita-progress"><div class="cita-progress-bar" style="width:100%"></div></div>
+
+        <div class="cita-calendario-wrap">
+          <div class="cita-cal-header">
+            <button onclick="CitaController.mesAnterior()" aria-label="Mes anterior">‹</button>
+            <span id="cita-cal-titulo"></span>
+            <button onclick="CitaController.mesSiguiente()" aria-label="Mes siguiente">›</button>
+          </div>
+          <div class="cita-cal-dias-semana">
+            <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span>
+          </div>
+          <div class="cita-cal-grid" id="cita-cal-grid"></div>
+          <div class="cita-cal-leyenda">
+            <span class="leyenda-item"><span class="leyenda-dot disponible"></span>Disponible</span>
+            <span class="leyenda-item"><span class="leyenda-dot ocupado"></span>Ocupado</span>
+            <span class="leyenda-item"><span class="leyenda-dot seleccionado"></span>Seleccionado</span>
+          </div>
+        </div>
+
+        <div class="cita-field" id="cita-horas-wrap" style="display:none">
+          <label>Hora disponible</label>
+          <div class="cita-horas-grid" id="cita-horas-grid"></div>
+          <span class="cita-error" id="err-hora"></span>
+        </div>
+        <span class="cita-error" id="err-fecha"></span>
+
+        <div class="cita-nav">
+          <button class="btn-saludinfo-outline" onclick="CitaController.irPaso(2)">← Atrás</button>
+          <button class="btn-saludinfo-primary" onclick="CitaController.confirmarCita()">
+            Confirmar por WhatsApp 📲
+          </button>
+        </div>
+
+        <!-- Mensaje de confirmación (oculto por defecto) -->
+        <div class="cita-confirmacion hidden" id="cita-confirmacion">
+          <div class="cita-confirmacion-icon">✅</div>
+          <h3>¡Solicitud enviada!</h3>
+          <p>Tu solicitud de cita fue enviada por WhatsApp. Pronto recibirás confirmación de tu EPS.</p>
+          <button class="btn-saludinfo-primary" onclick="CitaController.cerrarModal()">Cerrar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     MODAL — Detalle de EPS
+════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="Controller.closeModal(event)" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-header-bar">
+      <h2 id="modal-title"></h2>
+      <button class="modal-close-btn" onclick="Controller.closeModal()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modal-content-body" id="modal-body"></div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="row g-4 mb-4">
+
+      <!-- Brand -->
+      <div class="col-lg-6">
+        <div class="footer-brand">
+          <h3>✚ SaludInfo Colombia</h3>
+          <p>Plataforma informativa sobre el sistema de salud colombiano. No almacenamos datos personales ni realizamos trámites. Toda la información es de carácter orientativo.</p>
+        </div>
+      </div>
+
+      <!-- Secciones -->
+      <div class="col-6 col-lg-3">
+        <div class="footer-col">
+          <h4>Secciones</h4>
+          <ul>
+            <li onclick="Controller.navigate('mi-eps')">Mi EPS</li>
+            <li onclick="Controller.navigate('mi-ips')">Mi IPS</li>
+            <li onclick="Controller.navigate('sedes')">Directorio de Sedes</li>
+            <li onclick="Controller.navigate('citas')">Agendar Cita</li>
+            <li onclick="Controller.navigate('faq')">Preguntas Frecuentes</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Fuentes -->
+      <div class="col-6 col-lg-3">
+        <div class="footer-col">
+          <h4>Fuentes oficiales</h4>
+          <ul>
+            <li>Ministerio de Salud</li>
+            <li>Supersalud</li>
+            <li>Adres</li>
+            <li>Minsalud.gov.co</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer bottom -->
+    <div class="footer-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <p class="mb-0">© 2026 Laura Calvo Gómez &amp; Freddy Urrego — <span>Fundación Universitaria Compensar</span> — Desarrollo Frontend</p>
+      <p class="mb-0">Proyecto académico · Aviso legal</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Botón flotante WhatsApp -->
+<a class="whatsapp-flotante" 
+   href="https://wa.me/573046406044?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20SaludInfo%20Colombia%20%F0%9F%8F%A5" 
+   target="_blank" 
+   rel="noopener"
+   aria-label="Contáctanos por WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="30" height="30">
+    <path fill="#fff" d="M24 4C13 4 4 13 4 24c0 3.6 1 7 2.7 10L4 44l10.3-2.7C17.1 43 20.5 44 24 44c11 0 20-9 20-20S35 4 24 4z"/>
+    <path fill="#25D366" d="M24 6C14.1 6 6 14.1 6 24c0 3.5 1 6.8 2.7 9.6L6.5 41.5l8.1-2.1C17.2 41 20.5 42 24 42c9.9 0 18-8.1 18-18S33.9 6 24 6z"/>
+    <path fill="#fff" d="M17.5 14.5c-.4 0-.9.2-1.3.6-.8.9-2.2 2.7-2.2 5.2 0 2.6 1.8 5.1 2.1 5.5.3.4 3.6 5.6 8.7 7.6 1.1.4 2 .7 2.6.9 1.1.3 2.1.3 2.9.2 1-.1 2.9-1.2 3.3-2.3.4-1.1.4-2.1.3-2.3-.1-.2-.4-.3-.9-.6l-3.5-1.7c-.5-.2-.8-.3-1.1.3-.3.6-1.2 1.5-1.5 1.8-.3.3-.5.4-.9.1-.4-.3-1.9-.7-3.6-2.2-1.3-1.2-2.2-2.6-2.5-3.1-.3-.5 0-.7.2-1 .2-.2.4-.5.7-.8.2-.3.3-.5.5-.8.2-.3.1-.6 0-.9l-1.6-3.8c-.3-.6-.6-.8-1-.8h-.2z"/>
+  </svg>
+  <span class="whatsapp-flotante-texto">¿Tienes dudas?</span>
+</a>
+
+
+<!-- Toast de confirmación -->
+<div class="toast-notificacion" id="toast-notificacion">
+  ✅ Se ha enviado una notificación
+</div>
+
+<!-- Bootstrap 5 JS Bundle (incluye Popper) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+<!-- MVC: cargar en orden Model → View → Controller -->
+<script src="js/model.js"></script>
+<script src="js/view.js"></script>
+<script src="js/controller.js"></script>
+
+
+</body>
+</html>
