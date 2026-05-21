@@ -42,7 +42,7 @@ El proyecto sigue el patrón **MVC en JavaScript puro**:
 
 ## 🚀 Demo
 
-👉 [Ver proyecto en GitHub Pages](https://lauracalvog.github.io/-SaludInfo/)
+👉 [Ver proyecto en GitHub Pages](https://github.com/Faurregob/SaludInfo.git)
 
 ## 👥 Autores
 
